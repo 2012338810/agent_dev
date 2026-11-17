@@ -8,7 +8,10 @@
 ## 第 1 周（2026-11-17 ~ 11-23）
 
 ### 第 1 天（11-17 周二）· 环境、仓库、第一次提交
-- Q1 `.venv` 里的包，系统 Python 能不能 import？为什么？
+
+> 环境口径：conda `py311`（`D:\ANACONDA\envs\py311`，Python 3.11.18），不建 `.venv`。
+
+- Q1 `py311` 里装的包，系统 Python（3.14）能不能 import？为什么？
   - 答：
 - Q2 为什么 `.gitignore` 必须在第一次 commit 之前写好？
   - 答：

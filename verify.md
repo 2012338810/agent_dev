@@ -12,11 +12,16 @@
 > 环境口径：conda `py311`（`D:\ANACONDA\envs\py311`，Python 3.11.18），不建 `.venv`。
 
 - Q1 `py311` 里装的包，系统 Python（3.14）能不能 import？为什么？
-  - 答：
+  - 答：不能，py311 是独立的环境，与系统的 3.14 互不共通。
+  - 判定：🟡 结论对，机制没说
+  - 待补：包落在 `<sys.prefix>\Lib\site-packages`；`sys.path` 由解释器按自己的前缀构造，3.14 的 `sys.path` 里不会出现 `D:\ANACONDA\envs\py311\Lib\site-packages`，反之亦然。
 - Q2 为什么 `.gitignore` 必须在第一次 commit 之前写好？
-  - 答：
+  - 答：不在第一次 commit 前写好，可能会导致部分应该被忽略的文件被 commit 上去。
+  - 判定：🟡 说了后果，没说为什么之后改规则就无效
+  - 待补：规则只对**未跟踪**文件生效；一旦被跟踪，之后加规则对它无效，必须 `git rm --cached` 摘掉；进了历史后即使删除，`git show` 仍能取出（若含密钥须视为泄漏）。
 - Q3 `pip` 和 `python -m pip` 有什么区别，什么时候后者更安全？
-  - 答：
+  - 答：`python -m pip` 用当前环境下的 python 去执行；直接 `pip` 用的是 PATH 里的第一个解释器，可能装到别的环境，导致包装不到要用它的地方。
+  - 判定：✅ 机制与场景都对
 
 ### 第 2 天（11-18 周三）· JSON 读取与数据整理
 - Q1 `json.load` 和 `json.loads` 的区别？

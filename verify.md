@@ -12,13 +12,14 @@
 > 环境口径：conda `py311`（`D:\ANACONDA\envs\py311`，Python 3.11.18），不建 `.venv`。
 
 - Q1 `py311` 里装的包，系统 Python（3.14）能不能 import？为什么？
-  - 答：不能，py311 是独立的环境，与系统的 3.14 互不共通。
-  - 判定：🟡 结论对，机制没说
-  - 待补：包落在 `<sys.prefix>\Lib\site-packages`；`sys.path` 由解释器按自己的前缀构造，3.14 的 `sys.path` 里不会出现 `D:\ANACONDA\envs\py311\Lib\site-packages`，反之亦然。
+  - 答（11-17 首答）：不能，py311 是独立的环境，与系统的 3.14 互不共通。
+  - 答（11-18 重答）：conda 通过 `sys.path` 和 `sys.prefix` 控制包位置，py311 的包由 `conda activate` 控制的 PATH 和 `sys.prefix` 管理。
+  - 判定：🟡 连续两次 🟡（按规则第三次仍 🟡 视同 ❌，进周末重学）
+  - 待补：顺序反了——`activate` 只改 PATH，让 `python` 指向 `envs\py311\python.exe`；这个解释器启动后**自报** `sys.prefix = D:\ANACONDA\envs\py311`，于是把 `<prefix>\Lib\site-packages` 加进 `sys.path`。3.14 的解释器算出的是 `C:\Python314`，路径里根本没有 py311 那份，所以 import 不到。`sys.path` 是结果，不是开关。
 - Q2 为什么 `.gitignore` 必须在第一次 commit 之前写好？
-  - 答：不在第一次 commit 前写好，可能会导致部分应该被忽略的文件被 commit 上去。
-  - 判定：🟡 说了后果，没说为什么之后改规则就无效
-  - 待补：规则只对**未跟踪**文件生效；一旦被跟踪，之后加规则对它无效，必须 `git rm --cached` 摘掉；进了历史后即使删除，`git show` 仍能取出（若含密钥须视为泄漏）。
+  - 答（11-17 首答）：不在第一次 commit 前写好，可能会导致部分应该被忽略的文件被 commit 上去。
+  - 答（11-18 重答）：首次 commit 决定追踪状态；之后再加规则无法取消已有追踪，因为追踪状态是第一次 commit 就定下来的。
+  - 判定：✅ 11-18 重答通过（补一句：已跟踪的要 `git rm --cached` 摘；进历史后 `git show` 仍能取出）
 - Q3 `pip` 和 `python -m pip` 有什么区别，什么时候后者更安全？
   - 答：`python -m pip` 用当前环境下的 python 去执行；直接 `pip` 用的是 PATH 里的第一个解释器，可能装到别的环境，导致包装不到要用它的地方。
   - 判定：✅ 机制与场景都对

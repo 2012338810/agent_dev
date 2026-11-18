@@ -1,7 +1,36 @@
-*.log
-/out/
-/log/
-/.vscode/
+# 虚拟环境
+.venv/
+venv/
+env/
+
+# 密钥与环境变量（只提交 .env.example）
 .env
-__pycache__
+.env.*
+!.env.example
+
+# Python 缓存与构建产物
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+
+# 测试与工具缓存
 .pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# 本地临时目录与备份
+tmp/
+*.bak
+.bak/
+
+# 编辑器 / 系统
+.idea/
+.DS_Store
+Thumbs.db
+
+# 日志与运行产物
+*.log
+logs/

@@ -1,6 +1,6 @@
 {
-    "python-envs.defaultEnvManager": "ms-python.python:venv",
-    "python-envs.defaultPackageManager": "ms-python.python:venv",
+    "python-envs.defaultEnvManager": "ms-python.python:conda",
+    "python-envs.defaultPackageManager": "ms-python.python:conda",
     "python.defaultInterpreterPath": "${workspaceFolder}/.venv/Scripts/python.exe",
     "python.terminal.activateEnvironment": true,
     "editor.formatOnSave": false
